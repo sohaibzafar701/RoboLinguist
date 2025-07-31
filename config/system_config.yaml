@@ -1,0 +1,63 @@
+llm:
+  api_key: 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
+  base_url: https://openrouter.ai/api/v1
+  default_model: mistralai/mistral-7b-instruct
+  fallback_model: meta-llama/llama-3-8b-instruct
+  timeout: 30
+  max_retries: 3
+  temperature: 0.7
+  max_tokens: 1000
+
+ros2:
+  domain_id: 0
+  namespace: /chatgpt_robots
+  qos_profile: default
+  discovery_timeout: 10.0
+  node_name_prefix: chatgpt_robots
+  use_sim_time: true
+
+safety:
+  strict_mode: true
+  max_velocity: 2.0
+  max_acceleration: 1.0
+  safety_zones: []
+  emergency_stop_timeout: 1.0
+  collision_threshold: 0.5
+  battery_low_threshold: 20.0
+
+simulation:
+  use_gazebo: true
+  world_file: warehouse.world
+  robot_model: tiago
+  max_robots: 10
+  physics_engine: ode
+  real_time_factor: 1.0
+  gui_enabled: true
+  headless: false
+
+web_interface:
+  host: 0.0.0.0
+  port: 8080
+  debug: false
+  cors_enabled: true
+  websocket_enabled: true
+  static_folder: static
+  template_folder: templates
+  secret_key: your-secret-key-here
+
+task_orchestrator:
+  use_ray: true
+  ray_address: auto
+  max_concurrent_tasks: 50
+  task_timeout: 300
+  retry_attempts: 3
+  priority_levels: 10
+  load_balancing_strategy: round_robin
+
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: chatgpt_robots.log
+  max_file_size: 10MB
+  backup_count: 5
+  console_output: true

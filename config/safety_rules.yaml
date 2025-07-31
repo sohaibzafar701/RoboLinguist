@@ -1,0 +1,131 @@
+safety_rules:
+  - rule_id: max_velocity
+    name: Maximum Velocity Limit
+    rule_type: velocity
+    parameters:
+      max_linear_velocity: 2.0
+      max_angular_velocity: 1.0
+    enabled: true
+    severity: high
+
+  - rule_id: forbidden_zones
+    name: Forbidden Zone Restriction
+    rule_type: zone
+    parameters:
+      zones:
+        - name: human_workspace
+          type: rectangle
+          bounds:
+            x_min: -1.0
+            x_max: 1.0
+            y_min: -1.0
+            y_max: 1.0
+        - name: equipment_area
+          type: circle
+          center: [5.0, 5.0]
+          radius: 2.0
+        - name: loading_dock
+          type: rectangle
+          bounds:
+            x_min: 10.0
+            x_max: 15.0
+            y_min: -2.0
+            y_max: 2.0
+    enabled: true
+    severity: critical
+
+  - rule_id: battery_level
+    name: Minimum Battery Level
+    rule_type: state
+    parameters:
+      min_battery_level: 20.0
+    enabled: true
+    severity: medium
+
+  - rule_id: collision_avoidance
+    name: Collision Avoidance
+    rule_type: position
+    parameters:
+      min_distance_to_robots: 0.5
+      min_distance_to_obstacles: 0.3
+    enabled: true
+    severity: high
+
+  - rule_id: command_blacklist
+    name: Forbidden Commands
+    rule_type: command
+    parameters:
+      forbidden_actions:
+        - shutdown
+        - reset
+        - calibrate
+        - override
+      forbidden_keywords:
+        - dangerous
+        - unsafe
+        - override
+        - emergency
+        - force
+    enabled: true
+    severity: critical
+
+  - rule_id: workspace_bounds
+    name: Workspace Boundary Limits
+    rule_type: zone
+    parameters:
+      zones:
+        - name: workspace_boundary
+          type: rectangle
+          bounds:
+            x_min: -20.0
+            x_max: 20.0
+            y_min: -20.0
+            y_max: 20.0
+      invert: true  # Points outside this zone are forbidden
+    enabled: true
+    severity: high
+
+  - rule_id: max_acceleration
+    name: Maximum Acceleration Limit
+    rule_type: velocity
+    parameters:
+      max_linear_acceleration: 1.0
+      max_angular_acceleration: 0.5
+    enabled: true
+    severity: medium
+
+  - rule_id: robot_status_check
+    name: Robot Status Validation
+    rule_type: state
+    parameters:
+      allowed_statuses:
+        - idle
+        - moving
+      forbidden_statuses:
+        - error
+        - maintenance
+        - offline
+    enabled: true
+    severity: high
+
+  - rule_id: time_restrictions
+    name: Time-based Restrictions
+    rule_type: command
+    parameters:
+      allowed_hours:
+        start: 6
+        end: 22
+      forbidden_days: []  # 0=Monday, 6=Sunday
+    enabled: false
+    severity: medium
+
+  - rule_id: payload_limits
+    name: Payload Weight Limits
+    rule_type: command
+    parameters:
+      max_payload_weight: 10.0  # kg
+      check_actions:
+        - manipulate
+        - carry
+    enabled: true
+    severity: medium

@@ -1,0 +1,44 @@
+# Core dependencies
+pydantic>=2.0.0
+dataclasses-json>=0.6.0
+typing-extensions>=4.0.0
+
+# Configuration management
+PyYAML>=6.0.0
+python-dotenv>=1.0.0
+
+# Web interface
+Flask>=2.3.0
+Flask-CORS>=4.0.0
+Flask-SocketIO>=5.3.0
+
+# LLM service
+httpx>=0.24.0
+openai>=1.0.0
+tenacity>=8.2.0
+
+# ROS2 (will be installed separately)
+# rclpy
+# geometry_msgs
+# nav_msgs
+# sensor_msgs
+
+# Distributed computing
+ray[default]>=2.5.0
+
+# Simulation (will be installed separately)
+# gazebo-ros-pkgs
+
+# Testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.10.0
+
+# Development
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Logging and monitoring
+structlog>=23.0.0
+prometheus-client>=0.16.0
