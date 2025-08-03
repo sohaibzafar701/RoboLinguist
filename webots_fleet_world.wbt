@@ -1,0 +1,190 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/WoodenBox.proto"
+
+WorldInfo {
+  info [
+    "ChatGPT for Robots - Fleet Control Demonstration"
+    "This world contains 10 robots for testing NLP-based fleet commands"
+  ]
+  title "ChatGPT Robotics Fleet Demo"
+  basicTimeStep 16
+}
+
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 0 0 15
+  follow "robot_0"
+}
+
+TexturedBackground {
+}
+
+TexturedBackgroundLight {
+}
+
+# Large warehouse-like arena
+RectangleArena {
+  translation 0 0 0
+  floorSize 20 20
+  floorTileSize 2 2
+  wallHeight 1
+  wallAppearance PBRAppearance {
+    baseColor 0.8 0.8 0.8
+    roughness 0.5
+    metalness 0.1
+  }
+}
+
+# Warehouse shelves/obstacles
+WoodenBox {
+  translation -6 -6 0.5
+  size 2 1 1
+  name "shelf_1"
+}
+
+WoodenBox {
+  translation -6 0 0.5
+  size 2 1 1
+  name "shelf_2"
+}
+
+WoodenBox {
+  translation -6 6 0.5
+  size 2 1 1
+  name "shelf_3"
+}
+
+WoodenBox {
+  translation 0 -6 0.5
+  size 2 1 1
+  name "shelf_4"
+}
+
+WoodenBox {
+  translation 0 6 0.5
+  size 2 1 1
+  name "shelf_5"
+}
+
+WoodenBox {
+  translation 6 -6 0.5
+  size 2 1 1
+  name "shelf_6"
+}
+
+WoodenBox {
+  translation 6 0 0.5
+  size 2 1 1
+  name "shelf_7"
+}
+
+WoodenBox {
+  translation 6 6 0.5
+  size 2 1 1
+  name "shelf_8"
+}
+
+# Fleet of 10 robots with external controllers
+E-puck {
+  translation -8 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_0"
+  customData "0"
+}
+
+E-puck {
+  translation -6 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_1"
+  customData "1"
+}
+
+E-puck {
+  translation -4 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_2"
+  customData "2"
+}
+
+E-puck {
+  translation -2 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_3"
+  customData "3"
+}
+
+E-puck {
+  translation 0 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_4"
+  customData "4"
+}
+
+E-puck {
+  translation 2 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_5"
+  customData "5"
+}
+
+E-puck {
+  translation 4 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_6"
+  customData "6"
+}
+
+E-puck {
+  translation 6 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_7"
+  customData "7"
+}
+
+E-puck {
+  translation 8 -8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_8"
+  customData "8"
+}
+
+E-puck {
+  translation -8 8 0
+  rotation 0 0 1 0
+  controller "<extern>"
+  name "robot_9"
+  customData "9"
+}
+
+# Supervisor robot for fleet management
+Robot {
+  translation 0 0 2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0
+        transparency 0.8
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  name "fleet_supervisor"
+  controller "<extern>"
+  supervisor TRUE
+}

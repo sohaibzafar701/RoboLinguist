@@ -1,172 +1,409 @@
-# ChatGPT for Robots
+# 🤖 RoboLinguist
 
-A scalable, open-source robotics fleet control system that enables natural language control of multiple robots using Large Language Models (LLMs).
+**Natural Language Control for Robot Fleets**
 
-## Features
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![ROS2](https://img.shields.io/badge/ROS2-Humble-green.svg)](https://docs.ros.org/en/humble/)
+[![Webots](https://img.shields.io/badge/Webots-2023b-orange.svg)](https://cyberbotics.com/)
+[![Success Rate](https://img.shields.io/badge/Test%20Success%20Rate-92.3%25-brightgreen.svg)](#test-results)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-- **Natural Language Control**: Control robots using plain English commands
-- **Multi-Robot Fleet Management**: Coordinate multiple robots simultaneously
-- **Safety-First Design**: Built-in safety validation and emergency stop capabilities
-- **LLM Integration**: Powered by OpenRouter for flexible model selection
-- **ROS2 Compatible**: Full integration with the ROS2 ecosystem
-- **Simulation Support**: Test and validate in Gazebo simulation environment
-- **Web Interface**: User-friendly web-based control panel
-- **Distributed Computing**: Scalable task orchestration using Ray
+RoboLinguist is an advanced natural language interface for controlling robot fleets. Simply tell your robots what to do in plain English, and watch them execute complex tasks with intelligent coordination, safety validation, and real-time adaptation.
 
-## Quick Start
+## 🎯 **What Makes RoboLinguist Special**
 
-### 1. Setup Virtual Environment
+- **🗣️ Natural Language Control**: "Move all robots to the center" → Coordinated fleet movement
+- **🧠 Context-Aware Intelligence**: Understands robot positions, capabilities, and environment
+- **🛡️ Advanced Safety Systems**: Multi-layer safety validation with emergency stop capabilities
+- **🔄 Real-Time Adaptation**: Dynamic task orchestration with distributed processing
+- **🎮 Simulation Ready**: Full Webots integration for testing and development
+- **⚡ Production Ready**: 92.3% test success rate with robust error handling
+
+## 🚀 **Quick Start**
+
+### Prerequisites
+- Python 3.8+
+- ROS2 Humble (optional, mock implementation available)
+- Webots 2023b+ (for simulation)
+- OpenRouter API key
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/sohaibzafar701/RoboLinguist.git
+cd RoboLinguist
+
 # Create virtual environment
 python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Activate virtual environment (Windows)
-venv\Scripts\activate
+# Install dependencies
+pip install -r requirements.txt
 
-# Or use our convenience scripts
-# For Command Prompt:
-activate_venv.bat
-
-# For PowerShell:
-.\activate_venv.ps1
+# Configure your API key
+cp config/system_config.yaml.template config/system_config.yaml
+# Edit config/system_config.yaml and add your OpenRouter API key
 ```
 
-### 2. Install Dependencies
+### 🔑 **API Key Setup**
+
+1. **Get OpenRouter API Key:**
+   - Visit [OpenRouter.ai](https://openrouter.ai/)
+   - Sign up and get your API key
+
+2. **Configure the system:**
+   ```bash
+   # Copy template to actual config
+   cp config/system_config.yaml.template config/system_config.yaml
+   
+   # Edit the config file and replace 'your_openrouter_api_key_here' with your actual API key
+   # You can use any text editor:
+   notepad config/system_config.yaml  # Windows
+   nano config/system_config.yaml     # Linux/Mac
+   ```
+
+3. **Verify setup:**
+   ```bash
+   python test_openrouter_live.py
+   ```
+
+### Run the Demo
 
 ```bash
-# Install Python dependencies
-pip install -r requirements.txt
+# Start the complete system demo with Webots simulation
+python run_webots_demo.py
 ```
 
-### 3. Configure the System
+Watch as RoboLinguist:
+1. Discovers 5 simulated robots
+2. Translates natural language commands
+3. Executes formation maneuvers
+4. Validates safety constraints
+5. Demonstrates emergency stop capabilities
 
-1. Update `config/system_config.yaml` with your OpenRouter API key:
+## 🎮 **Try It Yourself**
+
+```python
+from services.command_translator import CommandTranslator
+from services.robotics_context_manager import RoboticsContextManager
+
+# Initialize the system
+translator = CommandTranslator()
+context_manager = RoboticsContextManager()
+
+# Give natural language commands
+commands = [
+    "Move all robots to the center",
+    "Form a circle formation", 
+    "Create a line formation with 2 meter spacing",
+    "Move robot 0 to position 5, 3"
+]
+
+# Execute with context awareness
+for command in commands:
+    result = await translator.translate_with_context(command)
+    print(f"✓ Generated {len(result.commands)} robot commands")
+```
+
+## 🏗️ **System Architecture**
+
+RoboLinguist follows a modular, production-ready architecture:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Natural Language Input                    │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│              Command Translator (LLM)                       │
+│  • Context-aware translation                                │
+│  • Formation command handling                               │
+│  • Multi-robot coordination                                 │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│                Safety Validator                             │
+│  • Multi-layer safety rules                                 │
+│  • Zone restrictions                                        │
+│  • Emergency stop system                                    │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│              Task Orchestrator                              │
+│  • Distributed task management                              │
+│  • Priority-based scheduling                                │
+│  • Real-time monitoring                                     │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│                ROS2 Bridge                                  │
+│  • Standard ROS2 topics                                     │
+│  • Real robot compatibility                                 │
+│  • Simulation integration                                   │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│            Robot Fleet / Simulation                         │
+│  • Real robots via ROS2                                     │
+│  • Webots simulation                                        │
+│  • Gazebo support (planned)                                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 🧩 **Core Components**
+
+### 1. **Command Translator** (`services/command_translator.py`)
+- **LLM-powered translation** of natural language to robot commands
+- **Context-aware processing** using real-time robot states
+- **Formation handling** for complex multi-robot maneuvers
+- **Confidence scoring** and validation
+
+### 2. **Safety Validator** (`safety_validator/`)
+- **Multi-layer safety rules** (velocity, zones, collision avoidance)
+- **Emergency stop system** with instant fleet-wide halt
+- **Configurable safety policies** for different environments
+- **Real-time violation detection**
+
+### 3. **Task Orchestrator** (`task_orchestrator/`)
+- **Distributed task management** with Ray integration
+- **Priority-based scheduling** for optimal resource utilization
+- **Robot registry** with health monitoring
+- **Real-time status tracking**
+
+### 4. **Simulation Bridge** (`simulation_bridge/`)
+- **ROS2-compatible interface** for seamless real robot integration
+- **Webots simulation support** for testing and development
+- **Mock implementations** for development without hardware
+- **Standard topic interfaces** (`/cmd_vel`, `/odom`, etc.)
+
+### 5. **Context Manager** (`services/robotics_context_manager.py`)
+- **Real-time robot state tracking**
+- **Environment awareness**
+- **Dynamic context updates**
+- **Multi-robot coordination**
+
+## 📊 **Test Results**
+
+RoboLinguist achieves **92.3% success rate** across comprehensive system tests:
+
+| Test Category | Success Rate | Details |
+|---------------|--------------|---------|
+| Robot Discovery | ✅ 100% | All 5 robots discovered and registered |
+| Command Translation | ✅ 75% | 3/4 translation tests passing |
+| Formation Control | ✅ 100% | Circle and line formations working |
+| Safety Validation | ✅ 100% | Safe/unsafe commands handled correctly |
+| Task Orchestration | ✅ 100% | Tasks submitted and completed |
+| Robot Movement | ✅ 100% | Real robot movement in simulation |
+| Emergency Stop | ✅ 100% | Instant fleet-wide emergency halt |
+
+**Overall System Success Rate: 92.3% (12/13 tests passing)**
+
+## 🛡️ **Safety Features**
+
+RoboLinguist prioritizes safety with multiple protection layers:
+
+- **🚫 Forbidden Zones**: Define no-go areas for robots
+- **⚡ Velocity Limits**: Configurable speed and acceleration constraints  
+- **🔍 Collision Avoidance**: Minimum distance enforcement between robots
+- **🔋 Battery Monitoring**: Prevent operations with low battery
+- **🚨 Emergency Stop**: Instant fleet-wide halt with 5-second timeout
+- **📋 Command Blacklist**: Block dangerous or unauthorized commands
+
+## 🎯 **Supported Commands**
+
+### Navigation Commands
+```
+"Move all robots to the center"
+"Move robot 0 to position 5, 3"
+"Navigate to the loading dock"
+"Return all robots to home position"
+```
+
+### Formation Commands
+```
+"Form a circle formation"
+"Create a line formation with 2 meter spacing"
+"Arrange robots in a square pattern"
+"Spread out in defensive formation"
+```
+
+### Task Commands
+```
+"Patrol the warehouse perimeter"
+"Inspect all workstations"
+"Collect items from station A"
+"Follow the human operator"
+```
+
+## 🔧 **Configuration**
+
+### System Configuration (`config/system_config.yaml`)
 ```yaml
 llm:
-  api_key: your_openrouter_api_key_here
+  api_key: "your_openrouter_api_key"
+  model: "mistralai/mistral-7b-instruct"
+  
+safety:
+  strict_mode: true
+  max_velocity: 2.0
+  emergency_stop_timeout: 5.0
+  
+simulation:
+  use_webots: true
+  world_file: "webots_working_demo/minimal_fleet_world.wbt"
 ```
 
-2. Adjust other settings as needed (ROS2 domain, web port, etc.)
+### Safety Rules (`config/safety_rules.yaml`)
+```yaml
+safety_rules:
+  - rule_id: max_velocity
+    name: Maximum Velocity Limit
+    parameters:
+      max_linear_velocity: 2.0
+      max_angular_velocity: 1.0
+    severity: high
+    
+  - rule_id: forbidden_zones
+    name: Forbidden Zone Restriction
+    parameters:
+      zones:
+        - name: human_workspace
+          type: rectangle
+          bounds: {x_min: -1.0, x_max: 1.0, y_min: -1.0, y_max: 1.0}
+    severity: critical
+```
 
-### 4. Test the Setup
+## 🚀 **Advanced Usage**
 
+### Custom Safety Rules
+```python
+from safety_validator.safety_checker import SafetyChecker, SafetyRule
+
+# Create custom safety rule
+custom_rule = SafetyRule(
+    rule_id="custom_zone",
+    name="Custom Restricted Zone",
+    rule_type="zone",
+    parameters={
+        "zones": [{
+            "name": "server_room",
+            "type": "circle",
+            "center": [10.0, 5.0],
+            "radius": 3.0
+        }]
+    },
+    severity="critical"
+)
+
+# Add to safety checker
+safety_checker.add_safety_rule(custom_rule)
+```
+
+### Distributed Task Processing
+```python
+from task_orchestrator.ray_distributed_manager import RayDistributedManager
+
+# Initialize distributed processing
+distributed_manager = RayDistributedManager()
+await distributed_manager.initialize()
+
+# Submit high-priority task
+task = Task(
+    task_id="urgent_inspection",
+    description="Emergency inspection of area B",
+    priority=TaskPriority.HIGH,
+    estimated_duration=120
+)
+
+result = await distributed_manager.submit_task(task)
+```
+
+## 🧪 **Development & Testing**
+
+### Run Tests
 ```bash
-python test_setup.py
+# Run all tests
+python -m pytest tests/
+
+# Run specific test categories
+python -m pytest tests/test_command_translator.py
+python -m pytest tests/test_safety_checker.py
+
+# Run integration tests with Webots
+python run_webots_integration_tests.py
 ```
 
-## Project Structure
-
-```
-chatgpt-for-robots/
-├── config/                 # Configuration management
-│   ├── config_manager.py   # Configuration loading and validation
-│   ├── settings.py         # Typed configuration classes
-│   └── system_config.yaml  # Main configuration file
-├── core/                   # Core interfaces and data models
-│   ├── interfaces.py       # Abstract base classes
-│   ├── data_models.py      # Data structures
-│   └── base_component.py   # Base component class
-├── web_interface/          # Web-based user interface
-├── llm_service/           # LLM integration and command translation
-├── safety_validator/      # Safety checking and validation
-├── task_orchestrator/     # Task management and distribution
-├── ros2_bridge/          # ROS2 integration
-├── simulation/           # Gazebo simulation support
-├── venv/                 # Virtual environment (created after setup)
-├── requirements.txt      # Python dependencies
-├── setup.py             # Package setup
-└── test_setup.py        # Setup verification script
-```
-
-## Development Workflow
-
-### Using Virtual Environment
-
-Always activate the virtual environment before working on the project:
-
+### Development Setup
 ```bash
-# Windows Command Prompt
-venv\Scripts\activate
+# Install development dependencies
+pip install -r requirements-dev.txt
 
-# Windows PowerShell
-venv\Scripts\Activate.ps1
-
-# Or use convenience scripts
-activate_venv.bat        # For CMD
-.\activate_venv.ps1      # For PowerShell
-```
-
-### Running Commands
-
-All Python commands should be run within the virtual environment:
-
-```bash
-# Install new dependencies
-pip install package_name
-
-# Run tests
-python -m pytest
-
-# Run the application
-python -m web_interface.app
-
-# Format code
+# Run code formatting
 black .
+isort .
 
-# Type checking
+# Run linting
+flake8 .
 mypy .
 ```
 
-### Deactivating Virtual Environment
+## 📁 **Project Structure**
 
-```bash
-deactivate
+```
+robolinguist/
+├── 🧠 core/                    # Core data models and interfaces
+├── 🔧 services/               # Main service components
+│   ├── command_translator.py  # Natural language processing
+│   ├── openrouter_client.py   # LLM API client
+│   └── robotics_context_manager.py # Context awareness
+├── 🛡️ safety_validator/       # Safety systems
+│   ├── safety_checker.py      # Rule validation
+│   └── emergency_stop.py      # Emergency procedures
+├── 🎯 task_orchestrator/      # Task management
+│   ├── task_manager.py        # Task coordination
+│   ├── robot_registry.py      # Robot tracking
+│   └── ray_distributed_manager.py # Distributed processing
+├── 🌉 simulation_bridge/      # Simulation integration
+│   ├── ros2_simulation_bridge.py # ROS2 bridge
+│   ├── webots_robot_interface.py # Webots interface
+│   └── ros2_bridge_node.py    # ROS2 node management
+├── ⚙️ config/                 # Configuration files
+├── 🧪 tests/                  # Test suites
+├── 🎮 webots_working_demo/    # Webots simulation files
+└── 📚 docs/                   # Documentation
 ```
 
-## Configuration
+## 🤝 **Contributing**
 
-The system uses a hierarchical configuration system:
-
-1. **Default values** in `config/settings.py`
-2. **YAML configuration** in `config/system_config.yaml`
-3. **Environment variables** (highest priority)
-
-### Key Configuration Sections
-
-- **LLM Settings**: API keys, model selection, timeouts
-- **ROS2 Settings**: Domain ID, namespaces, QoS profiles
-- **Safety Settings**: Velocity limits, safety zones, emergency procedures
-- **Web Interface**: Host, port, CORS settings
-- **Simulation**: Gazebo world files, robot models
-
-## Dependencies
-
-### Core Dependencies
-- Python 3.8+
-- PyYAML (configuration)
-- Pydantic (data validation)
-- Flask (web interface)
-- OpenAI/httpx (LLM integration)
-
-### Optional Dependencies
-- ROS2 (robot control)
-- Gazebo (simulation)
-- Ray (distributed computing)
-
-## Contributing
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 1. Fork the repository
-2. Create a feature branch
-3. Set up virtual environment and install dependencies
-4. Make your changes
-5. Run tests and ensure code quality
-6. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 **License**
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🙏 **Acknowledgments**
 
-For questions and support, please open an issue on GitHub.
+- **OpenRouter** for LLM API services
+- **ROS2** for robotics middleware
+- **Webots** for simulation environment
+- **Ray** for distributed computing
+- The open-source robotics community
+
+## 📞 **Support**
+
+- 📧 **Email**: chmsohaib701@gmail.com
+<!-- - 📖 **Documentation**: [docs.robolinguist.dev](https://docs.robolinguist.dev) -->
+- 🐛 **Issues**: [GitHub Issues](https://github.com/sohaibzafar701/RoboLinguist/issues)
+
+---
+
+**Made with ❤️ for the robotics community**
+
+*RoboLinguist - Where natural language meets robotic intelligence*

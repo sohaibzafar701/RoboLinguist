@@ -1,0 +1,54 @@
+#VRML_SIM R2024a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2024a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2024a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2024a/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+  basicTimeStep 32
+  contactProperties [
+    ContactProperties {
+      coulombFriction [8]
+      bounce 0.4
+    }
+  ]
+}
+
+Viewpoint {
+  orientation -0.5 0.5 0.7 2.1
+  position 0 15 10
+}
+
+TexturedBackground {
+}
+
+RectangleArena {
+  translation 0 0 0
+  floorSize 10 10
+  wallHeight 0.5
+}
+
+
+E-puck {
+  translation -2.25 0.0 0
+  name "robot_0"
+  controller "fleet_controller"
+}
+
+E-puck {
+  translation -0.75 0.0 0
+  name "robot_1"
+  controller "fleet_controller"
+}
+
+E-puck {
+  translation 0.75 0.0 0
+  name "robot_2"
+  controller "fleet_controller"
+}
+
+E-puck {
+  translation 2.25 0.0 0
+  name "robot_3"
+  controller "fleet_controller"
+}

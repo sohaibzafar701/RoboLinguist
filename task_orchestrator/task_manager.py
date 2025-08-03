@@ -655,3 +655,28 @@ class TaskManager(BaseComponent, ITaskManager):
                 asyncio.create_task(self.assign_task(task))
         except Exception as e:
             self.logger.error(f"Error processing pending tasks: {e}")
+    
+    async def shutdown(self) -> None:
+        """Shutdown the task manager and clean up resources."""
+        try:
+            self.logger.info("Shutting down Task Manager...")
+            
+            # Stop monitoring
+            self._stop_monitoring()
+            
+            # Cancel all active tasks
+            with self._lock:
+                active_task_ids = list(self._active_tasks.keys())
+            
+            for task_id in active_task_ids:
+                await self.cancel_task(task_id)
+            
+            # Shutdown distributed manager if available
+            if self.use_distributed and self.distributed_manager:
+                await self.distributed_manager.shutdown()
+            
+            self.logger.info("Task Manager shutdown complete")
+            
+        except Exception as e:
+            self.logger.error(f"Error during Task Manager shutdown: {e}")
+            raise

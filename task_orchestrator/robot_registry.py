@@ -390,3 +390,21 @@ class RobotRegistry(BaseComponent):
             
             if unhealthy_robots:
                 self.logger.warning(f"Unhealthy robots detected: {unhealthy_robots}")
+    
+    async def shutdown(self) -> None:
+        """Shutdown the robot registry and clean up resources."""
+        try:
+            self.logger.info("Shutting down Robot Registry...")
+            
+            # Stop health monitoring
+            self._stop_health_monitoring()
+            
+            # Clear robot registry
+            with self._lock:
+                self._robots.clear()
+            
+            self.logger.info("Robot Registry shutdown complete")
+            
+        except Exception as e:
+            self.logger.error(f"Error during Robot Registry shutdown: {e}")
+            raise

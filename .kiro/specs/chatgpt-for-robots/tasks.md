@@ -34,7 +34,7 @@
     - Write unit tests for command structure validation
     - _Requirements: 1.2, 4.1_
 
-- [x] 3. Create LLM service integration
+- [x] 3. Create context-aware LLM service integration
 
 
 
@@ -48,13 +48,45 @@
     - _Requirements: 5.1, 5.2, 5.3_
 
 
-  - [x] 3.2 Build command translation system
+  - [x] 3.2 Build context aggregation system
 
-    - Implement CommandTranslator class to convert natural language to ROS2 commands
-    - Create prompt templates for different types of robot operations
-    - Add command parsing logic to extract structured data from LLM responses
-    - Write integration tests with real API calls and command validation
+
+
+    - Create RoboticsContextManager to collect real-time system state
+    - Implement context gathering from Robot Registry, Environment, and World state
+    - Add context serialization for LLM consumption with structured formatting
+    - Create context caching and update mechanisms for performance optimization
+    - Write unit tests for context aggregation accuracy and performance
+    - _Requirements: 1.1, 2.1, 2.2_
+
+
+  - [x] 3.3 Build context-aware command translation system
+
+
+
+
+    - Enhance CommandTranslator to accept and process system context alongside natural language
+    - Create industry-standard prompt templates with rich contextual information
+    - Implement context-aware prompt engineering for accurate robot command generation
+    - Add intelligent context filtering to include only relevant information for each command
+    - Write integration tests with real context data and API calls
     - _Requirements: 1.1, 1.2, 5.4_
+
+
+
+
+
+
+  - [ ] 3.4 Implement real-time context integration
+
+
+
+    - Integrate context manager with existing Robot Registry for live robot states
+    - Connect to Simulation Bridge for real-time environment and world data
+    - Create context update triggers for dynamic system changes
+    - Add context validation and error handling for missing or stale data
+    - Write integration tests with Webots simulation and real robot scenarios
+    - _Requirements: 2.1, 2.2, 2.3_
 
 - [-] 4. Implement safety validation system
 
@@ -158,16 +190,51 @@
 
 
 
-  - [ ] 7.1 Implement Gazebo simulation manager
+
+
+
+
+
+
+ 
+
+  - [x] 7.1 Implement Gazebo simulation manager
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     - Create GazeboManager class to control simulation lifecycle
     - Implement RobotSpawner to instantiate multiple TIAGo robots
     - Add warehouse environment setup with configurable layouts
     - Write integration tests for simulation startup and robot spawning
+
+
     - _Requirements: 2.1, 2.3_
 
-  - [ ] 7.2 Build environment controller
+
+
+
+
+
+  - [x] 7.2 Build environment controller
+
+
+
     - Implement EnvironmentController for dynamic environment modifications
     - Add obstacle placement and removal capabilities
     - Create environment state persistence and restoration
@@ -176,6 +243,8 @@
 
 - [ ] 8. Implement path planning and navigation
   - [ ] 8.1 Create path planning system
+
+
     - Implement path planning algorithms with obstacle avoidance
     - Add dynamic replanning capabilities for changing environments
     - Create path optimization for multi-robot coordination

@@ -26,6 +26,9 @@ class ConfigManager:
         self.config_data: Dict[str, Any] = {}
         self.system_settings: Optional[SystemSettings] = None
         
+        # Load configuration automatically
+        self.load_config()
+        
     def load_config(self, config_file: str = "system_config.yaml") -> bool:
         """Load configuration from file.
         
@@ -154,6 +157,31 @@ class ConfigManager:
         print(f"Created default configuration file: {config_path}")
         print("Please update the configuration with your API keys and settings.")
     
+    def get(self, key: str, default: Any = None) -> Any:
+        """Get a configuration section or setting by key.
+        
+        Args:
+            key: Configuration key (supports dot notation, e.g., 'llm.api_key')
+            default: Default value if key not found
+            
+        Returns:
+            Configuration value or default
+        """
+        if '.' in key:
+            # Handle dot notation
+            keys = key.split('.')
+            value = self.config_data
+            
+            try:
+                for k in keys:
+                    value = value[k]
+                return value
+            except (KeyError, TypeError):
+                return default
+        else:
+            # Handle simple key
+            return self.config_data.get(key, default)
+    
     def get_setting(self, key: str, default: Any = None) -> Any:
         """Get a configuration setting by key.
         
@@ -164,15 +192,7 @@ class ConfigManager:
         Returns:
             Configuration value or default
         """
-        keys = key.split('.')
-        value = self.config_data
-        
-        try:
-            for k in keys:
-                value = value[k]
-            return value
-        except (KeyError, TypeError):
-            return default
+        return self.get(key, default)
     
     def set_setting(self, key: str, value: Any):
         """Set a configuration setting.

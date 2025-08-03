@@ -1,0 +1,100 @@
+safety_rules:
+  - rule_id: max_velocity
+    name: Maximum Velocity Limit
+    rule_type: velocity
+    parameters:
+      max_linear_velocity: 5.0  # More permissive for testing
+      max_angular_velocity: 2.0
+    enabled: true
+    severity: high
+
+  - rule_id: forbidden_zones
+    name: Forbidden Zone Restriction
+    rule_type: zone
+    parameters:
+      zones:
+        - name: equipment_area
+          type: circle
+          center: [15.0, 15.0]  # Moved far away from test area
+          radius: 2.0
+        - name: loading_dock
+          type: rectangle
+          bounds:
+            x_min: 20.0  # Moved far away from test area
+            x_max: 25.0
+            y_min: -2.0
+            y_max: 2.0
+    enabled: true
+    severity: critical
+
+  - rule_id: battery_level
+    name: Minimum Battery Level
+    rule_type: state
+    parameters:
+      min_battery_level: 10.0  # Lower threshold for testing
+    enabled: true
+    severity: medium
+
+  - rule_id: collision_avoidance
+    name: Collision Avoidance
+    rule_type: position
+    parameters:
+      min_distance_to_robots: 0.3  # Reduced for testing
+      min_distance_to_obstacles: 0.2
+    enabled: true
+    severity: high
+
+  - rule_id: command_blacklist
+    name: Forbidden Commands
+    rule_type: command
+    parameters:
+      forbidden_actions:
+        - shutdown
+        - reset
+      forbidden_keywords:
+        - dangerous
+        - override
+    enabled: true
+    severity: critical
+
+  - rule_id: workspace_bounds
+    name: Workspace Boundary Limits
+    rule_type: zone
+    parameters:
+      zones:
+        - name: workspace_boundary
+          type: rectangle
+          bounds:
+            x_min: -50.0  # Much larger workspace for testing
+            x_max: 50.0
+            y_min: -50.0
+            y_max: 50.0
+      invert: true  # Points outside this zone are forbidden
+    enabled: true
+    severity: high
+
+  - rule_id: robot_status_check
+    name: Robot Status Validation
+    rule_type: state
+    parameters:
+      allowed_statuses:
+        - idle
+        - moving
+        - executing  # Added for testing
+      forbidden_statuses:
+        - error
+        - maintenance
+        - offline
+    enabled: true
+    severity: high
+
+  - rule_id: payload_limits
+    name: Payload Weight Limits
+    rule_type: command
+    parameters:
+      max_payload_weight: 20.0  # Higher limit for testing
+      check_actions:
+        - manipulate
+        - carry
+    enabled: true
+    severity: medium

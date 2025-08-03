@@ -140,3 +140,34 @@ log/
 *.temp
 temp/
 tmp/
+
+# Project-specific exclusions
+to_delete/
+.kiro/
+*.wbt.bak
+*.world.bak
+
+# API Keys and sensitive config
+config/system_config.yaml
+config/local_*.yaml
+*.key
+*.secret
+
+# Test reports and logs
+*_test_report.json
+task_*_test_report.json
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+ros2-*.zip
+
+# Webots cache
+.webots_cache/
+webots_cache/
+
+# Development files
+debug_*.py
+temp_*.py
+scratch_*.py
