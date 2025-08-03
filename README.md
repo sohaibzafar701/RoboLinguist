@@ -1,6 +1,6 @@
 # 🤖 RoboLinguist
 
-**Natural Language Control for Robot Fleets**
+**Advanced Context Aware, Natural Language Interface for Autonomous Robot Fleet Management**
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![ROS2](https://img.shields.io/badge/ROS2-Humble-green.svg)](https://docs.ros.org/en/humble/)
