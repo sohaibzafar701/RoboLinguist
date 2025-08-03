@@ -1,0 +1,63 @@
+MIT License
+
+Copyright (c) 2025 RoboLinguist Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+This project incorporates components from the following open-source projects:
+
+### ROS2 (Robot Operating System 2)
+- License: Apache License 2.0
+- Copyright: Open Source Robotics Foundation
+- Website: https://ros.org/
+
+### Webots Robot Simulator
+- License: Apache License 2.0
+- Copyright: Cyberbotics Ltd.
+- Website: https://cyberbotics.com/
+
+### Ray Distributed Computing
+- License: Apache License 2.0
+- Copyright: Ray Team
+- Website: https://ray.io/
+
+### OpenRouter API
+- License: Commercial API Service
+- Website: https://openrouter.ai/
+
+### Python Dependencies
+All Python dependencies are listed in requirements.txt with their respective licenses.
+For detailed license information of each dependency, please refer to their individual
+package documentation.
+
+---
+
+## Disclaimer
+
+RoboLinguist is designed for research, educational, and commercial robotics applications.
+Users are responsible for ensuring safe operation of robotic systems and compliance with
+local regulations. The authors and contributors are not liable for any damages or injuries
+resulting from the use of this software with physical robotic systems.
+
+Always test thoroughly in simulation before deploying to real robots.
+Ensure proper safety measures and emergency stop procedures are in place.
